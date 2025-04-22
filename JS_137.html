@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Last Visited Page</title>
+</head>
+<body>
+  <h1>Welcome to My Website!</h1>
+  <p id="lastPageMessage"></p>
+
+  <script>
+
+    const lastPage = localStorage.getItem('lastVisitedPage');
+
+   
+    if (lastPage && lastPage !== window.location.href) {
+      document.getElementById('lastPageMessage').textContent = `You last visited: ${lastPage}`;
+    } else {
+      document.getElementById('lastPageMessage').textContent = `This is your first visit or you refreshed the same page.`;
+    }
+
+  
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('lastVisitedPage', window.location.href);
+    });
+  </script>
+</body>
+</html>

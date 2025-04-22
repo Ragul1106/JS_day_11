@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Mode Example</title>
+  <style>
+    body {
+      background-color: white;
+      color: black;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark {
+      background-color: black;
+      color: white;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dark Mode Toggle</h1>
+  <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+  <script>
+    
+    function setMode(isDarkMode) {
+      localStorage.setItem('darkMode', isDarkMode);
+      document.body.classList.toggle('dark', isDarkMode);
+    }
+
+   
+    function loadMode() {
+      const isDarkMode = localStorage.getItem('darkMode') === 'true'; 
+      if (isDarkMode) {
+        document.body.classList.add('dark');
+      }
+    }
+
+   
+    function toggleDarkMode() {
+      const currentMode = document.body.classList.contains('dark');
+      setMode(!currentMode);
+    }
+
+    
+    window.addEventListener('load', loadMode);
+  </script>
+</body>
+</html>

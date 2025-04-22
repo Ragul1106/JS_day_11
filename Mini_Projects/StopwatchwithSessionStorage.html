@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stopwatch with SessionStorage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .timer {
+      font-size: 50px;
+      margin-bottom: 20px;
+    }
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Stopwatch</h1>
+  
+  <div class="timer" id="timerDisplay">00:00:00</div>
+  
+  <button id="startStopBtn">Start</button>
+  <button id="resetBtn">Reset</button>
+
+  <script>
+    let timer;
+    let isRunning = false;
+    let elapsedTime = parseInt(sessionStorage.getItem('elapsedTime')) || 0; 
+
+    // Update timer display
+    function updateTimerDisplay() {
+      let hours = Math.floor(elapsedTime / 3600);
+      let minutes = Math.floor((elapsedTime % 3600) / 60);
+      let seconds = elapsedTime % 60;
+      document.getElementById('timerDisplay').textContent = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+    }
+
+    // Format time to always show 2 digits
+    function formatTime(time) {
+      return time < 10 ? '0' + time : time;
+    }
+
+    // Start/Stop button functionality
+    document.getElementById('startStopBtn').addEventListener('click', function() {
+      if (isRunning) {
+        clearInterval(timer);
+        sessionStorage.setItem('elapsedTime', elapsedTime); 
+        this.textContent = 'Start';
+      } else {
+        timer = setInterval(function() {
+          elapsedTime++;
+          updateTimerDisplay();
+        }, 1000);
+        this.textContent = 'Stop';
+      }
+      isRunning = !isRunning;
+    });
+
+    // Reset button functionality
+    document.getElementById('resetBtn').addEventListener('click', function() {
+      clearInterval(timer);
+      isRunning = false;
+      elapsedTime = 0;
+      sessionStorage.setItem('elapsedTime', elapsedTime); 
+      updateTimerDisplay();
+      document.getElementById('startStopBtn').textContent = 'Start';
+    });
+
+    // Initialize the timer on page load
+    window.addEventListener('load', updateTimerDisplay);
+  </script>
+
+</body>
+</html>

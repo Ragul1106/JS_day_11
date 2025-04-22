@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Survey with SessionStorage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 50px auto;
+      text-align: center;
+    }
+
+    input, button {
+      padding: 10px;
+      width: 80%;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    #surveyDisplay {
+      margin-top: 20px;
+      font-weight: bold;
+      color: darkblue;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Simple Survey</h2>
+  <form id="surveyForm">
+    <input type="text" id="surveyInput" placeholder="Enter your feedback" required />
+    <br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="surveyDisplay"></div>
+
+  <script>
+    // Save survey response
+    document.querySelector('#surveyForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const response = document.querySelector('#surveyInput').value;
+      sessionStorage.setItem('surveyResponse', response);
+      document.querySelector('#surveyDisplay').textContent = `Previous Response: ${response}`;
+    });
+
+    // Retrieve survey response
+    window.addEventListener('load', function() {
+      const response = sessionStorage.getItem('surveyResponse');
+      if (response) {
+        document.querySelector('#surveyDisplay').textContent = `Previous Response: ${response}`;
+      }
+    });
+  </script>
+
+</body>
+</html>

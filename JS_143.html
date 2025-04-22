@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page Visit Counter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    h1 {
+      font-size: 2em;
+      color: darkgreen;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="visitMessage">Loading...</h1>
+
+  <script>
+    // Increment visit count
+    let visitCount = parseInt(localStorage.getItem('pageVisits')) || 0;
+    visitCount++;
+    localStorage.setItem('pageVisits', visitCount);
+
+    // Display visit count
+    const message = `You have visited this page ${visitCount} time${visitCount > 1 ? 's' : ''}.`;
+    document.getElementById('visitMessage').textContent = message;
+
+    
+    console.log(message);
+  </script>
+
+</body>
+</html>

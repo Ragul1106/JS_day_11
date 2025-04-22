@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Retrieve User from LocalStorage</title>
+</head>
+<body>
+  <h1>Check Console for Output</h1>
+  <button id="retrieveBtn">Retrieve User</button>
+
+  <script>
+    
+    const sampleUser = { name: 'Alice', age: 25 };
+    localStorage.setItem('user', JSON.stringify(sampleUser));
+
+    
+    document.getElementById('retrieveBtn').addEventListener('click', function () {
+      const userString = localStorage.getItem('user');
+      const userObject = JSON.parse(userString);
+      console.log(userObject); 
+      alert(`Check the console: Name - ${userObject.name}, Age - ${userObject.age}`);
+    });
+  </script>
+</body>
+</html>

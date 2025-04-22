@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 50px;
+    }
+
+    .item {
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #cartDisplay {
+      margin-top: 30px;
+      font-weight: bold;
+      color: darkblue;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Shopping Cart</h1>
+
+  <div class="item">
+    <p>Item 1: Apple</p>
+    <button onclick="addToCart('Apple')">Add to Cart</button>
+  </div>
+
+  <div class="item">
+    <p>Item 2: Banana</p>
+    <button onclick="addToCart('Banana')">Add to Cart</button>
+  </div>
+
+  <div class="item">
+    <p>Item 3: Orange</p>
+    <button onclick="addToCart('Orange')">Add to Cart</button>
+  </div>
+
+  <button onclick="loadCart()">View Cart (Console)</button>
+  <div id="cartDisplay"></div>
+
+  <script>
+    
+    function addToCart(item) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push(item);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${item} added to cart!`);
+    }
+
+   
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      console.log("Cart Items:", cart);
+      document.getElementById('cartDisplay').textContent = `Cart contains: ${cart.join(', ')}`;
+    }
+
+    
+    window.addEventListener('load', function() {
+      loadCart();
+    });
+  </script>
+
+</body>
+</html>

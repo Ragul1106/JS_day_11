@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do List with LocalStorage</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 400px;
+      margin: 50px auto;
+      text-align: center;
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 80%;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      text-align: left;
+      background: #f0f0f0;
+      margin-bottom: 5px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>To-Do List</h2>
+  <input type="text" id="taskInput" placeholder="Enter a new task" />
+  <br>
+  <button onclick="handleAddTask()">Add Task</button>
+
+  <ul id="taskList"></ul>
+
+  <script>
+    // Add task to localStorage
+    function addTask(task) {
+      let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+      tasks.push(task);
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    // Retrieve and display tasks
+    function loadTasks() {
+      const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+      const list = document.getElementById('taskList');
+      list.innerHTML = '';
+      tasks.forEach(task => {
+        const li = document.createElement('li');
+        li.textContent = task;
+        list.appendChild(li);
+      });
+    }
+
+    // Handle Add button click
+    function handleAddTask() {
+      const taskInput = document.getElementById('taskInput');
+      const task = taskInput.value.trim();
+      if (task) {
+        addTask(task);
+        taskInput.value = '';
+        loadTasks();
+      }
+    }
+
+    // Load tasks when page loads
+    window.addEventListener('load', loadTasks);
+  </script>
+
+</body>
+</html>

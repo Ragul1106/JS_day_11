@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Click Counter with LocalStorage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      margin-top: 20px;
+    }
+
+    #counterDisplay {
+      font-size: 32px;
+      margin-top: 10px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Click Counter</h1>
+  <p>Total Clicks:</p>
+  <div id="counterDisplay">0</div>
+  <button id="clickButton">Click Me!</button>
+
+  <script>
+    // Initialize counter
+    let counter = parseInt(localStorage.getItem('clickCount')) || 0;
+
+    // Display initial counter
+    document.querySelector('#counterDisplay').textContent = counter;
+
+    // Increment and store count
+    document.querySelector('#clickButton').addEventListener('click', function() {
+      counter++;
+      localStorage.setItem('clickCount', counter);
+      document.querySelector('#counterDisplay').textContent = counter;
+    });
+  </script>
+
+</body>
+</html>

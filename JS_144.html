@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+    }
+    #output {
+      margin-top: 20px;
+      font-weight: bold;
+      color: darkblue;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Mini Quiz</h2>
+
+  <div class="question">
+    <p>1. What is the capital of France?</p>
+    <label><input type="radio" name="q1" value="Paris"> Paris</label>
+    <label><input type="radio" name="q1" value="London"> London</label>
+    <label><input type="radio" name="q1" value="Berlin"> Berlin</label>
+  </div>
+
+  <div class="question">
+    <p>2. What is 2 + 2?</p>
+    <label><input type="radio" name="q2" value="3"> 3</label>
+    <label><input type="radio" name="q2" value="4"> 4</label>
+    <label><input type="radio" name="q2" value="5"> 5</label>
+  </div>
+
+  <button onclick="loadAnswers()">Show Answers </button>
+
+  <script>
+
+    function storeAnswer(questionId, answer) {
+      let answers = JSON.parse(sessionStorage.getItem('quizAnswers')) || {};
+      answers[questionId] = answer;
+      sessionStorage.setItem('quizAnswers', JSON.stringify(answers));
+    }
+
+  
+    function loadAnswers() {
+      const answers = JSON.parse(sessionStorage.getItem('quizAnswers')) || {};
+      console.log("Stored Answers:", answers);
+      alert(`Stored Answers:\nQ1: ${answers.q1 || 'Not answered'}\nQ2: ${answers.q2 || 'Not answered'}`);
+    }
+
+    
+    document.querySelectorAll('input[type="radio"]').forEach(input => {
+      input.addEventListener('change', function() {
+        storeAnswer(this.name, this.value);
+      });
+    });
+
+
+    window.addEventListener('load', function() {
+      const saved = JSON.parse(sessionStorage.getItem('quizAnswers')) || {};
+      for (let question in saved) {
+        const selector = `input[name="${question}"][value="${saved[question]}"]`;
+        const radio = document.querySelector(selector);
+        if (radio) radio.checked = true;
+      }
+    });
+  </script>
+
+</body>
+</html>

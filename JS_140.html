@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Store User Object in LocalStorage</title>
+</head>
+<body>
+  <h1>User Info Saved</h1>
+  <button id="saveBtn">Save User</button>
+  <button id="showBtn">Show User</button>
+  <p id="output"></p>
+
+  <script>
+    // Save the user object
+    document.getElementById('saveBtn').addEventListener('click', function() {
+      const user = { name: 'Alice', age: 25 };
+      localStorage.setItem('user', JSON.stringify(user));
+      alert('User saved to localStorage!');
+    });
+
+    // Retrieve and display the user object
+    document.getElementById('showBtn').addEventListener('click', function() {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const user = JSON.parse(userData);
+        document.getElementById('output').textContent = `Name: ${user.name}, Age: ${user.age}`;
+      } else {
+        document.getElementById('output').textContent = 'No user data found.';
+      }
+    });
+  </script>
+</body>
+</html>

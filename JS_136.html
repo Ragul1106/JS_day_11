@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session Storage Test</title>
+</head>
+<body>
+  <form>
+    <label for="myForm">Enter some text:</label>
+    <input type="text" id="myForm" />
+  </form>
+
+  <script>
+    // Save form input value to sessionStorage
+    document.querySelector('#myForm').addEventListener('input', function() {
+      sessionStorage.setItem('formData', this.value);  
+    });
+
+    // Restore form input value from sessionStorage
+    window.addEventListener('load', function() {
+      const formData = sessionStorage.getItem('formData');
+      if (formData) {
+        document.querySelector('#myForm').value = formData; 
+      }
+    });
+  </script>
+</body>
+</html>
