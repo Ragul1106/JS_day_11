@@ -12,12 +12,12 @@
   </form>
 
   <script>
-    // Save form input value to sessionStorage
+   
     document.querySelector('#myForm').addEventListener('input', function() {
       sessionStorage.setItem('formData', this.value);  
     });
 
-    // Restore form input value from sessionStorage
+ 
     window.addEventListener('load', function() {
       const formData = sessionStorage.getItem('formData');
       if (formData) {

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Store User Object in LocalStorage</title>
 </head>
 <body>
@@ -11,14 +12,14 @@
   <p id="output"></p>
 
   <script>
-    // Save the user object
+   
     document.getElementById('saveBtn').addEventListener('click', function() {
       const user = { name: 'Alice', age: 25 };
       localStorage.setItem('user', JSON.stringify(user));
       alert('User saved to localStorage!');
     });
 
-    // Retrieve and display the user object
+    
     document.getElementById('showBtn').addEventListener('click', function() {
       const userData = localStorage.getItem('user');
       if (userData) {
